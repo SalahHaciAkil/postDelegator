@@ -1,0 +1,15 @@
+export const STATUS_CODES = {
+  CREATED: 201,
+  SUCCESS: 200,
+  BAD_REQUEST: 400,
+  FORBIDDEN: 403,
+  INTERNAL_SERVER_ERROR: 500,
+  NOT_FOUND: 404,
+};
+
+export const POST_ASSIGNMENT_TYPE = {
+  PERSON: 1,
+  SEGMENT: 2,
+};
+
+export const EVERY_10_MINUTES = "0 */10 * * * *";
