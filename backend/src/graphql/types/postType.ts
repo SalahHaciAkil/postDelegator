@@ -4,8 +4,7 @@ const PostType = gql`
   union PostResponse = Post | Response
   union PostsQueryResponse = ListOfPosts | Response
 
-  #   must be an array of non-nulls array
-
+  # must be an array of non-nulls
   type ListOfPosts {
     posts: [Post!]!
   }
