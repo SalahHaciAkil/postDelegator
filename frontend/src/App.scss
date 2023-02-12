@@ -1,0 +1,9 @@
+.wrapper {
+  padding-left: 220px;
+  padding-top: 20px;
+}
+@media only screen and (max-width: 767px) {
+  .wrapper {
+    padding-left: 20px;
+  }
+}
