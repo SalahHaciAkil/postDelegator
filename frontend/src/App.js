@@ -12,8 +12,8 @@ function App() {
         <Sidebar />
         <div className="wrapper">
           <Routes>
-            {ROUTES.map(({ element: Element, ...rest }) => (
-              <Route {...rest} element={<Element />} />
+            {ROUTES.map(({ element: Element, ...rest }, index) => (
+              <Route key={index} {...rest} element={<Element />} />
             ))}
           </Routes>
         </div>

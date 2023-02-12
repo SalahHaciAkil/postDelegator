@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./UserCard.module.scss";
 import defaultProfileImage from "../../../assets/images/profile.png";
-import { SEGMENTS, SEGMENTS_COLOR } from "../../../constants/index.js";
-function UserCard({ user: { color, segment } }) {
+import { SEGMENTS } from "../../../constants/index.js";
+function UserCard({ user, onSegmentChange }) {
   return (
     <div className={styles.userCard}>
       <div
@@ -12,18 +12,30 @@ function UserCard({ user: { color, segment } }) {
         }}
       ></div>
       <div className={styles.info}>
-        <p className={styles.name}>salah haciakil</p>
-        <p className={styles.email}>example@gmail.com</p>
+        <p className={styles.name}>{user.name}</p>
+        <p className={styles.email}>{user.email}</p>
         <p
           className={styles["segment-circle"]}
           style={{
-            backgroundColor: SEGMENTS_COLOR[color],
+            backgroundColor: user.segment.color,
           }}
         />
-        <p className={styles.segment}>{segment}</p>
-        <select name="segments" id="segments">
+        <p className={styles.segment}>{user.segment.name}</p>
+        <select
+          name="segments"
+          id="segments"
+          defaultValue={user.segment.name}
+          onChange={({ target: { value } }) => {
+            onSegmentChange({
+              segmentName: value,
+              id: user.id,
+            });
+          }}
+        >
           {SEGMENTS.map((segment) => (
-            <option value={segment.value}>{segment.name}</option>
+            <option key={segment.name} value={segment.value}>
+              {segment.name}
+            </option>
           ))}
         </select>
       </div>

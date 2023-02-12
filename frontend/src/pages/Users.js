@@ -1,26 +1,19 @@
 import React from "react";
-import UserCard from "../components/users/UserCard";
+import UsersList from "../components/users/UsersList";
+import useGetUsers from "../hooks/useGetUsers";
 function Users() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "1rem",
-      }}
-    >
-      {/* testing purpose */}
-      <UserCard user={{ segment: "Customer", color: "red" }} />
-      <UserCard user={{ segment: "Lead", color: "blue" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
-      <UserCard user={{ segment: "Prospect", color: "green" }} />
+  const { data, loading, error } = useGetUsers();
 
-    </div>
-  );
+  let content = null;
+  if (loading) {
+    content = <div>Loading...</div>;
+  } else if (error || data.message) {
+    content = <div>Error...</div>;
+  } else if (!loading & !error) {
+    content = <UsersList users={data.persons} />;
+  }
+
+  return content;
 }
 
 export default Users;

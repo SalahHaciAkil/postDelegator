@@ -12,9 +12,3 @@ export const SEGMENTS = [
     value: "lead",
   },
 ];
-
-export const SEGMENTS_COLOR = {
-  red: "#ed6464",
-  green: "#68ed64",
-  blue: "#648bed",
-};
