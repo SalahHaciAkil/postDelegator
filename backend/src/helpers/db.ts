@@ -41,6 +41,10 @@ export const seedDatabase = async () => {
 
 export const dropTables = async () => {
   try {
+    const res = await pool.query(
+      `SELECT * FROM information_schema.tables WHERE table_name = 'person' AND table_catalog = '${DB_DATABASE}'`
+    );
+    if (res.rows.length === 0) return console.log("🚀 Tables already dropped");
     const sql = fs.readFileSync("./src/dropTables.sql").toString();
     await pool.query(sql);
     console.log("🚀 Database dropped successfully");

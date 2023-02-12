@@ -46,6 +46,8 @@ const PostType = gql`
     createPost(input: CreatePostInput!): PostResponse
     deletePost(id: ID!): PostResponse
     updatePost(id: ID!, input: UpdatePostInput!): PostResponse
+    schedulePostToSegments(id: ID!, segmentNames: [SEGMENT_NAMES!]!): PostResponse
+    schedulePostToPersons(id: ID!, personIds: [ID!]!): PostResponse
   }
 `;
 

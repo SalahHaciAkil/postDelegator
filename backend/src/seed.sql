@@ -62,6 +62,8 @@ INSERT INTO person (name, email, segment_id) VALUES ('wael', 'wael@gmail.com', 1
 INSERT INTO post (title, subtitle, text, assigned_to) VALUES ('title 1', 'subtitle 1', 'text 1',  1);
 INSERT INTO post (title, subtitle, text, assigned_to) VALUES ('How to speak powerfully to make change in the world', 'subtitle 1', 'text 1',  2);
 INSERT INTO post (title, subtitle, text) VALUES ('title 1', 'subtitle 1', 'text 1');
+INSERT INTO post (title, subtitle, text) VALUES ('title 4', 'subtitle 4', 'text 4');
+INSERT INTO post (title, subtitle, text) VALUES ('title 5', 'subtitle 5', 'text 5');
 
 
 INSERT INTO post_segment (post_id, segment_id) VALUES (2, 2);

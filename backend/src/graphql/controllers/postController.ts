@@ -1,3 +1,4 @@
+import { POST_ASSIGNMENT_TYPE } from "../../helpers/constants";
 import { pool } from "../../helpers/db";
 import {
   CREATE_POST,
@@ -105,4 +106,53 @@ export const processPendingPosts = async () => {
       }
     }
   }
+};
+
+export const schedulePostToSegments = async (_: any, { id, segmentNames }) => {
+  const { rows } = await pool.query(
+    `UPDATE post SET assigned_to = $1 WHERE id = $2 RETURNING *`,
+    [POST_ASSIGNMENT_TYPE.SEGMENT, id]
+  );
+
+  // Get all segments from segmentNames
+  const segments = await pool.query(
+    `
+    SELECT * 
+    FROM segment 
+    WHERE segment.name = ANY($1)
+  `,
+    [segmentNames]
+  );
+  // Insert post_id and segment_id into post_segment
+  segments.rows.forEach(async (segment: any) => {
+    await pool.query(
+      `
+      INSERT INTO post_segment (post_id, segment_id) 
+      VALUES ($1, $2)
+    `,
+      [id, segment.id]
+    );
+  });
+
+  return rows[0];
+};
+
+export const schedulePostToPersons = async (_: any, { id, personIds }) => {
+  const { rows } = await pool.query(
+    `UPDATE post SET assigned_to = $1 WHERE id = $2 RETURNING *`,
+    [POST_ASSIGNMENT_TYPE.PERSON, id]
+  );
+
+  // Insert post_id and person_id into post_person
+  personIds.forEach(async (personId: string) => {
+    await pool.query(
+      `
+      INSERT INTO post_person (post_id, person_id)
+      VALUES ($1, $2)
+    `,
+      [id, personId]
+    );
+  });
+
+  return rows[0];
 };

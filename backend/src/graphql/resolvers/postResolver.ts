@@ -10,6 +10,8 @@ export default {
     createPost: handleUncaughtError(postController.createPost),
     deletePost: handleUncaughtError(postController.deletePost),
     updatePost: handleUncaughtError(postController.updatePost),
+    schedulePostToSegments: handleUncaughtError(postController.schedulePostToSegments),
+    schedulePostToPersons: handleUncaughtError(postController.schedulePostToPersons),
   },
   PostResponse: {
     __resolveType(obj: any) {
