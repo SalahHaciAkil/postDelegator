@@ -63,5 +63,5 @@ INSERT INTO post (title, subtitle, text) VALUES ('title 1', 'subtitle 1', 'text 
 
 INSERT INTO post_segment (post_id, segment_id) VALUES (1, 1);
 
-INSERT INTO post_person (post_id, person_id) VALUES (1, 1);
-INSERT INTO post_person (post_id, person_id) VALUES (1, 2);
+INSERT INTO post_person (post_id, person_id) VALUES (2, 1);
+INSERT INTO post_person (post_id, person_id) VALUES (2, 2);
