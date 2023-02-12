@@ -31,5 +31,5 @@ export const deletePost = async (_: any, { id }) => {
 
 export const getPosts = async () => {
   const { rows } = await pool.query(GET_POSTS);
-  return rows;
+  return { posts: rows };
 };

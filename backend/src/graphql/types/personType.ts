@@ -2,10 +2,19 @@ import { gql } from "apollo-server-express";
 
 const PersonType = gql`
   union PersonResponse = Person | Response
+  union PersonsQueryResponse = ListOfPersons | Response
+
+  # must be an array of non-nulls
+  type ListOfPersons {
+    persons: [Person!]!
+  }
+
   type Person {
     id: ID!
     email: String!
     name: String!
+    segment_id: String!
+    segment: Segment!
   }
 
   #   create person input
@@ -23,7 +32,7 @@ const PersonType = gql`
   }
 
   type Query {
-    hello: String
+    persons: PersonsQueryResponse
   }
   type Mutation {
     createPerson(input: CreatePersonInput!): PersonResponse

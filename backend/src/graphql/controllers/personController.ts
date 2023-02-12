@@ -2,8 +2,16 @@ import { pool } from "../../helpers/db";
 import {
   CREATE_PERSON,
   DELETE_PERSON,
+  GET_PERSONS,
   UPDATE_PERSON,
 } from "../../queries/personQueries";
+
+export const getPersons = async () => {
+  const { rows } = await pool.query(GET_PERSONS);
+  return { persons: rows };
+};
+
+// ----
 
 export const createPerson = async (_: any, { input }) => {
   const { name, email, segmentId } = input;

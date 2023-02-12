@@ -39,7 +39,7 @@ const PostType = gql`
   }
 
   type Query {
-    posts: [Post]
+    posts: PostsQueryResponse
   }
 
   type Mutation {
