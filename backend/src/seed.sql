@@ -29,6 +29,7 @@ CREATE TABLE post_segment (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   post_id INTEGER NOT NULL,
   segment_id INTEGER NOT NULL,
+  processed BOOLEAN NOT NULL DEFAULT FALSE,
   FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
   FOREIGN KEY (segment_id) REFERENCES segment(id) ON DELETE CASCADE,
   UNIQUE (post_id, segment_id)
@@ -38,6 +39,7 @@ CREATE TABLE post_person (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   post_id INTEGER NOT NULL,
   person_id INTEGER NOT NULL,
+  processed BOOLEAN NOT NULL DEFAULT FALSE,
   FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
   FOREIGN KEY (person_id) REFERENCES person(id) ON DELETE CASCADE,
   UNIQUE (post_id, person_id)
@@ -46,22 +48,23 @@ CREATE TABLE post_person (
 
 
 
-INSERT INTO segment (id, name, color) VALUES (1, 'prospect', 'red');
-INSERT INTO segment (id, name, color) VALUES (2, 'lead', 'blue');
-INSERT INTO segment (id, name, color) VALUES (3, 'customer', 'green');
+INSERT INTO segment (id, name, color) VALUES (1, 'prospect', '#ed6464');
+INSERT INTO segment (id, name, color) VALUES (2, 'lead', '#648bed');
+INSERT INTO segment (id, name, color) VALUES (3, 'customer', '#68ed64');
 
 INSERT INTO person (name, email, segment_id) VALUES ('salah', 'salah@gmail.com', 1);
 INSERT INTO person (name, email, segment_id) VALUES ('test', 'test@gmail.com', 2);
-INSERT INTO person (name, email, segment_id) VALUES ('john', 'john@gmail.com', 3);
+INSERT INTO person (name, email, segment_id) VALUES ('john', 'john@gmail.com', 2);
 INSERT INTO person (name, email, segment_id) VALUES ('ahmed', 'ahmed@gmail.com', 2);
 INSERT INTO person (name, email, segment_id) VALUES ('wael', 'wael@gmail.com', 1);
 
 
 INSERT INTO post (title, subtitle, text, assigned_to) VALUES ('title 1', 'subtitle 1', 'text 1',  1);
+INSERT INTO post (title, subtitle, text, assigned_to) VALUES ('How to speak powerfully to make change in the world', 'subtitle 1', 'text 1',  2);
 INSERT INTO post (title, subtitle, text) VALUES ('title 1', 'subtitle 1', 'text 1');
 
 
-INSERT INTO post_segment (post_id, segment_id) VALUES (1, 1);
+INSERT INTO post_segment (post_id, segment_id) VALUES (2, 2);
 
-INSERT INTO post_person (post_id, person_id) VALUES (2, 1);
-INSERT INTO post_person (post_id, person_id) VALUES (2, 2);
+INSERT INTO post_person (post_id, person_id) VALUES (1, 1);
+INSERT INTO post_person (post_id, person_id) VALUES (1, 2);

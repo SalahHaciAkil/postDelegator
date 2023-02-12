@@ -13,7 +13,6 @@ const PersonType = gql`
     id: ID!
     email: String!
     name: String!
-    segment_id: String!
     segment: Segment!
   }
 
@@ -38,6 +37,7 @@ const PersonType = gql`
     createPerson(input: CreatePersonInput!): PersonResponse
     deletePerson(id: ID!): PersonResponse
     updatePerson(id: ID!, input: UpdatePersonInput!): PersonResponse
+    updatePersonSegment(id: ID!, segmentName: SEGMENT_NAMES!): PersonResponse
   }
 `;
 

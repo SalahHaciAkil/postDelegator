@@ -10,6 +10,7 @@ export default {
     createPerson: handleUncaughtError(personController.createPerson),
     deletePerson: handleUncaughtError(personController.deletePerson),
     updatePerson: handleUncaughtError(personController.updatePerson),
+    updatePersonSegment: handleUncaughtError(personController.updatePersonSegment),
   },
 
   // TODO: add dataLoader here to avoid N+1 problem
