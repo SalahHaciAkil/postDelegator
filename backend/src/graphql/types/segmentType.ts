@@ -11,6 +11,7 @@ const SegmentType = gql`
     id: ID!
     name: String!
     color: String!
+    persons: [Person]
   }
 `;
 

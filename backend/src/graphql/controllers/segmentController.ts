@@ -10,3 +10,12 @@ export const getSegmentBySegmentId = async (parent: any, _: any) => {
   const { segment_id } = parent;
   return await getSegmentById(null, { id: segment_id });
 };
+
+export const getPersons = async (parent: any, _: any) => {
+  const { id } = parent;
+  const { rows } = await pool.query(
+    "SELECT person.* FROM person WHERE segment_id = $1",
+    [id]
+  );
+  return rows;
+};

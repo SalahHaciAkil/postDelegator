@@ -162,3 +162,16 @@ export const schedulePostToPersons = async (_: any, { id, personIds }) => {
 
   return rows[0];
 };
+
+export const getScheduledSegments = async ({ id }, _: any) => {
+  const { rows } = await pool.query(
+    `
+    SELECT segment.*
+    FROM segment 
+    JOIN post_segment ON segment.id = post_segment.segment_id 
+    WHERE post_segment.post_id = $1
+  `,
+    [id]
+  );
+  return rows;
+};

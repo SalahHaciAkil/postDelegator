@@ -21,6 +21,7 @@ const PostType = gql`
     text: String!
     sent: Boolean!
     assigned_to: ASSIGN_TYPE
+    scheduledSegments: [Segment]
   }
 
   #   create Post input
