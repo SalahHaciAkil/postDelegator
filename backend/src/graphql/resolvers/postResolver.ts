@@ -5,6 +5,7 @@ const { postController } = controllers;
 export default {
   Query: {
     posts: handleUncaughtError(postController.getPosts),
+    post: handleUncaughtError(postController.getPost),
   },
   Mutation: {
     createPost: handleUncaughtError(postController.createPost),

@@ -40,13 +40,17 @@ const PostType = gql`
 
   type Query {
     posts: PostsQueryResponse
+    post(id: ID!): PostResponse
   }
 
   type Mutation {
     createPost(input: CreatePostInput!): PostResponse
     deletePost(id: ID!): PostResponse
     updatePost(id: ID!, input: UpdatePostInput!): PostResponse
-    schedulePostToSegments(id: ID!, segmentNames: [SEGMENT_NAMES!]!): PostResponse
+    schedulePostToSegments(
+      id: ID!
+      segmentNames: [SEGMENT_NAMES!]!
+    ): PostResponse
     schedulePostToPersons(id: ID!, personIds: [ID!]!): PostResponse
   }
 `;

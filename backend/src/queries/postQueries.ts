@@ -4,3 +4,4 @@ export const DELETE_POST: string = `DELETE FROM post WHERE id = $1 RETURNING *`;
 // ----
 
 export const GET_POSTS: string = `SELECT * FROM post`;
+export const GET_POST:string = `SELECT * FROM post WHERE id = $1`;

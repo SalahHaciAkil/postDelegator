@@ -3,6 +3,7 @@ import { pool } from "../../helpers/db";
 import {
   CREATE_POST,
   DELETE_POST,
+  GET_POST,
   GET_POSTS,
   UPDATE_POST,
 } from "../../queries/postQueries";
@@ -56,6 +57,11 @@ export const deletePost = async (_: any, { id }) => {
 export const getPosts = async () => {
   const { rows } = await pool.query(GET_POSTS);
   return { posts: rows };
+};
+
+export const getPost = async (_: any, { id }) => {
+  const { rows } = await pool.query(GET_POST, [id]);
+  return rows[0];
 };
 
 export const processPendingPosts = async () => {
