@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const UpdateUserSegment = gql`
+export const UpdateUserSegmentMutation = gql`
   mutation UpdatePersonSegment($id: ID!, $segmentName: SEGMENT_NAMES!) {
     result: updatePersonSegment(id: $id, segmentName: $segmentName) {
       ... on Person {

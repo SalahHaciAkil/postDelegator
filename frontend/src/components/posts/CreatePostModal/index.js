@@ -2,17 +2,87 @@ import React from "react";
 import FormInput from "../../FormInput/FormInput.js";
 import Modal from "../../Modal/index.js";
 import Textarea from "../../Textarea/index.js";
+import ModalButton from "../../Modal/ModalButton";
+import styles from "../../Modal/Modal.module.scss";
+function CreatePostModal({
+  width,
+  isOpen,
+  handleClose,
+  handlePostSave,
+  isCreateLoading,
+}) {
+  const [postInput, setPostInput] = React.useState({
+    title: "",
+    subtitle: "",
+    text: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPostInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-function CreatePostModal({ isOpen, handleClose }) {
+  const resetForm = () => {
+    setPostInput({
+      title: "",
+      subtitle: "",
+      text: "",
+    });
+  };
+
+  const isValidInputs = (postInput) => {
+    return postInput.title && postInput.subtitle && postInput.text;
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!isValidInputs(postInput)) return alert("Please fill all the fields");
+    await handlePostSave(postInput);
+    resetForm();
+    handleClose();
+  };
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose}>
-      <h1>Create a new post</h1>
-      <form>
-        <FormInput placeholder="Title" type="text" name="title" id="title" />
-        <FormInput placeholder="Subtitle" type="text" name="title" id="title" />
-        <Textarea name="text" id="text" cols="30" rows="10"></Textarea>
-      </form>
-    </Modal>
+    <div
+      style={{
+        width: width ? width : "100%",
+      }}
+    >
+      <Modal isOpen={isOpen} handleClose={handleClose}>
+        <h1>Create a new post</h1>
+        <form onSubmit={onSubmit}>
+          <FormInput
+            placeholder="Title"
+            type="text"
+            name="title"
+            id="title"
+            onChange={handleInputChange}
+          />
+          <FormInput
+            onChange={handleInputChange}
+            placeholder="Subtitle"
+            type="text"
+            name="subtitle"
+            id="subtitle"
+          />
+          <Textarea
+            onChange={handleInputChange}
+            name="text"
+            id="text"
+            cols="30"
+            rows="10"
+          />
+          <div className={styles.btns}>
+            <ModalButton type="button" onClick={handleClose}>
+              Cancel
+            </ModalButton>
+            <ModalButton disabled={isCreateLoading}>
+              {isCreateLoading ? "Saving..." : "Save"}
+            </ModalButton>
+          </div>
+        </form>
+      </Modal>
+    </div>
   );
 }
 

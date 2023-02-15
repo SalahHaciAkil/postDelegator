@@ -1,6 +1,6 @@
 import styles from "./FormInput.module.scss";
 
-function FormInput({ placeholder, type, value, name, change, ...rest }) {
+function FormInput({ placeholder, type, value, name, onChange, ...rest }) {
   return (
     <div className={styles.formInput}>
       <input
@@ -8,7 +8,7 @@ function FormInput({ placeholder, type, value, name, change, ...rest }) {
         value={value}
         name={name}
         placeholder={placeholder}
-        onChange={change}
+        onChange={onChange}
         {...rest}
       />
     </div>

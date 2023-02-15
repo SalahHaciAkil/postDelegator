@@ -1,10 +1,10 @@
 import { useMutation } from "@apollo/client";
 import React from "react";
-import { UpdateUserSegment } from "../../../graphql/mutations/UpdateUserSegment";
+import { UpdateUserSegmentMutation } from "../../../graphql/mutations/UpdateUserSegment";
 import UserCard from "../UserCard";
 
 function UsersList({ users }) {
-  const [mutate] = useMutation(UpdateUserSegment);
+  const [mutate] = useMutation(UpdateUserSegmentMutation);
   const handleSegmentChange = ({ segmentName, id }) => {
     if (!segmentName) return;
     mutate({

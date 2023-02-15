@@ -1,15 +1,11 @@
 import { gql } from "@apollo/client";
+import { PostDetailsFragment } from "../fragments/PostDetails";
 
 export const GetPostQuery = gql`
   query getPost($id: ID!) {
-   result:post(id: $id) {
+    result: post(id: $id) {
       ... on Post {
-        id
-        title
-        subtitle
-        text
-        sent
-        assigned_to
+        ...PostDetails
       }
       ... on Response {
         message
@@ -18,4 +14,5 @@ export const GetPostQuery = gql`
       }
     }
   }
+  ${PostDetailsFragment}
 `;
