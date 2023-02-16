@@ -12,3 +12,8 @@ export const SEGMENTS = [
     value: "lead",
   },
 ];
+
+export const POST_SCHEDULING_TYPE = {
+  PERSON: "PERSON",
+  SEGMENT: "SEGMENT",
+};

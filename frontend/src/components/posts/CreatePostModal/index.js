@@ -53,6 +53,7 @@ function CreatePostModal({
         <form onSubmit={onSubmit}>
           <FormInput
             placeholder="Title"
+            autoFocus
             type="text"
             name="title"
             id="title"
