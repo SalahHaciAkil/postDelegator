@@ -1,12 +1,16 @@
 import { gql } from "@apollo/client";
-import { PostDetailsFragment } from "../fragments/PostDetails";
 
 export const GetPostsQuery = gql`
   query getPosts {
     result: posts {
       ... on ListOfPosts {
         posts {
-          ...PostDetails
+          scheduled_to
+          id
+          sent
+          subtitle
+          text
+          title
         }
       }
       ... on Response {
@@ -16,5 +20,4 @@ export const GetPostsQuery = gql`
       }
     }
   }
-  ${PostDetailsFragment}
 `;

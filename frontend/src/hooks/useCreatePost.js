@@ -21,6 +21,8 @@ function useCreatePost() {
         },
       });
 
+      if (result.message) alert(result.message);
+      if (result.id) alert('post created successfully');
       return result;
     },
     loading,

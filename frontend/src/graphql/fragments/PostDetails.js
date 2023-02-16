@@ -2,11 +2,26 @@ import { gql } from "@apollo/client";
 
 export const PostDetailsFragment = gql`
   fragment PostDetails on Post {
+    scheduled_to
     id
-    title
+    sent
     subtitle
     text
-    sent
-    assigned_to
+    title
+    scheduledPersons {
+      email
+      id
+      name
+      segment {
+        color
+        id
+        name
+      }
+    }
+    scheduledSegments {
+      color
+      name
+      id
+    }
   }
 `;
