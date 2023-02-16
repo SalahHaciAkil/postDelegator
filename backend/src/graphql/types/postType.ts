@@ -20,8 +20,9 @@ const PostType = gql`
     subtitle: String!
     text: String!
     sent: Boolean!
-    assigned_to: ASSIGN_TYPE
-    scheduledSegments: [Segment]
+    scheduled_to: ASSIGN_TYPE
+    scheduledSegments: [Segment!]
+    scheduledPersons: [Person!]
   }
 
   #   create Post input
@@ -29,7 +30,7 @@ const PostType = gql`
     title: String!
     subtitle: String!
     text: String!
-    assigned_to: ASSIGN_TYPE
+    scheduled_to: ASSIGN_TYPE
   }
 
   #   update post input

@@ -20,6 +20,7 @@ export default {
   },
   Post: {
     scheduledSegments: handleUncaughtError(postController.getScheduledSegments),
+    scheduledPersons: handleUncaughtError(postController.getScheduledPersons),
   },
   PostResponse: {
     __resolveType(obj: any) {
