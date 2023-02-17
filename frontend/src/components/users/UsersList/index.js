@@ -47,7 +47,7 @@ function UsersList({ users }) {
         {users.map((user) => {
           return (
             <UserCard
-              selectable={isSelect}
+              selectable={isSelect === "true"}
               onUserSelect={onUserSelect}
               selectedUsers={selectedUsers}
               onSegmentChange={handleSegmentChange}

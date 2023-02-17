@@ -11,6 +11,8 @@ function useCreatePost() {
       } = await mutate({
         variables: { input },
         update: (cache, { data }) => {
+          // check if the result is of type Response or Post
+          if (data.result.message) return;
           cache.writeQuery({
             query: GetPostQuery,
             variables: { id: data.result.id },
@@ -22,7 +24,7 @@ function useCreatePost() {
       });
 
       if (result.message) alert(result.message);
-      if (result.id) alert('post created successfully');
+      if (result.id) alert("post created successfully");
       return result;
     },
     loading,

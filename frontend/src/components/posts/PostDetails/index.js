@@ -161,7 +161,7 @@ function PostDetails({
               onChange={(selectedSegments) => {
                 setSelectedSegments(selectedSegments);
               }}
-              name="colors"
+              name="segments"
               options={SEGMENTS}
               className="basic-multi-select"
               classNamePrefix="select"

@@ -8,6 +8,7 @@ function useSchedulePostToSegments() {
 
   return {
     schedulePost: async ({ id, segmentNames }) => {
+      // TODO: replace alert with a better UI
       const {
         data: { result },
       } = await mutate({

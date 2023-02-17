@@ -4,7 +4,7 @@ import useGetPosts from "../hooks/useGetPosts";
 import useCreatePost from "../hooks/useCreatePost";
 import { useNavigate } from "react-router-dom";
 import PostsList from "../components/posts/PostsList";
-import Button from "../components/Button";
+import CreatePostButton from "../components/posts/CreatePostButton";
 function Post() {
   const { data, loading, error } = useGetPosts();
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,26 +29,9 @@ function Post() {
             navigate(`/post/${post.id}`);
           }}
         />
-
-        <div
-          style={{
-            display: modalOpen ? "none" : "block",
-            position: "fixed",
-            bottom: "1rem",
-            right: "calc(50% - 100px)",
-            zIndex: 1000,
-            width: "200px",
-          }}
-        >
-          <Button
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Create Post
-          </Button>
-        </div>
-
+        <CreatePostButton hidden={modalOpen} onClick={() => setModalOpen(true)}>
+          Create Post
+        </CreatePostButton>
         <PostsList posts={data.posts} />
       </>
     );
