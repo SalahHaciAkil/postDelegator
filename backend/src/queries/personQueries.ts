@@ -4,3 +4,4 @@ export const DELETE_PERSON: string = `DELETE FROM person WHERE id = $1 RETURNING
 export const UPDATE_PERSON_SEGMENT: string = `UPDATE person SET segment_id = $1 WHERE id = $2 RETURNING *`;
 // ----
 export const GET_PERSONS: string = `SELECT * FROM person`;
+export const GET_PERSON_BY_EMAIL: string = `SELECT * FROM person WHERE email = $1`;

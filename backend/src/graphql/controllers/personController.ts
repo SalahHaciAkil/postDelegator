@@ -1,10 +1,13 @@
+import { STATUS_CODES } from "./../../helpers/constants";
 import { pool } from "../../helpers/db";
+import { raiseError } from "../../helpers/errorHandlers";
 import {
   CREATE_PERSON,
   DELETE_PERSON,
   GET_PERSONS,
   UPDATE_PERSON,
   UPDATE_PERSON_SEGMENT,
+  GET_PERSON_BY_EMAIL,
 } from "../../queries/personQueries";
 import { GET_SEGMENT_BY_NAME } from "../../queries/segmentQueries";
 
@@ -16,8 +19,33 @@ export const getPersons = async () => {
 // ----
 
 export const createPerson = async (_: any, { input }) => {
-  const { name, email, segmentId } = input;
-  const { rows } = await pool.query(CREATE_PERSON, [name, email, segmentId]);
+  const { name, email, segmentName } = input;
+  const { rows: usersByEmailRows } = await pool.query(GET_PERSON_BY_EMAIL, [
+    email,
+  ]);
+  if (usersByEmailRows.length) {
+    return raiseError({
+      message: "User with this email already exists",
+      status: STATUS_CODES.BAD_REQUEST,
+      success: false,
+    });
+  }
+  const { rows: segmentsRows } = await pool.query(GET_SEGMENT_BY_NAME, [
+    segmentName,
+  ]);
+
+  if (!segmentsRows.length) {
+    return raiseError({
+      message: "Segment not found",
+      status: STATUS_CODES.NOT_FOUND,
+      success: false,
+    });
+  }
+  const { rows } = await pool.query(CREATE_PERSON, [
+    name,
+    email,
+    segmentsRows[0].id,
+  ]);
   return rows[0];
 };
 

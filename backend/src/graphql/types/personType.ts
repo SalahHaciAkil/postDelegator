@@ -20,7 +20,7 @@ const PersonType = gql`
   input CreatePersonInput {
     email: String!
     name: String!
-    segmentId: ID!
+    segmentName: SEGMENT_NAMES!
   }
 
   #   update person input
