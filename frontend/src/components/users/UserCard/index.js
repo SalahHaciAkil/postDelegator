@@ -45,8 +45,8 @@ function UserCard({
           }}
         >
           {SEGMENTS.map((segment) => (
-            <option key={segment.name} value={segment.value}>
-              {segment.name}
+            <option key={segment.label} value={segment.value}>
+              {segment.label}
             </option>
           ))}
         </select>

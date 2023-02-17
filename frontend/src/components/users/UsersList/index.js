@@ -58,7 +58,7 @@ function UsersList({ users }) {
         })}
       </div>
 
-      {selectedUsers.length > 0 && (
+      {isSelect && (
         <>
           <div
             style={{

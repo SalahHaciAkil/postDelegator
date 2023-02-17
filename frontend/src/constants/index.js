@@ -1,14 +1,14 @@
 export const SEGMENTS = [
   {
-    name: "Prospect",
+    label: "Prospect",
     value: "prospect",
   },
   {
-    name: "Customer",
+    label: "Customer",
     value: "customer",
   },
   {
-    name: "Lead",
+    label: "Lead",
     value: "lead",
   },
 ];

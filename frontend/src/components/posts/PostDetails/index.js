@@ -1,19 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { POST_SCHEDULING_TYPE } from "../../../constants";
+import { POST_SCHEDULING_TYPE, SEGMENTS } from "../../../constants";
 import Button from "../../Button";
 import styles from "./PostDetails.module.scss";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
-function PostDetails({ schedulePostToPersons, post, selectedUsers = [] }) {
+const animatedComponents = makeAnimated();
+function PostDetails({
+  schedulePostToPersons,
+  schedulePostToSegments,
+  post,
+  selectedUsers = [],
+}) {
+  const [isSegmentSelect, setIsSegmentSelect] = React.useState(false);
+  const [selectedSegments, setSelectedSegments] = React.useState([]);
   const navigate = useNavigate();
   return (
     <>
-      <div className={styles["post-detail-page"]}>
+      <div className={styles["post-wrapper"]}>
         <h1 className={styles["title"]}>{post.title}</h1>
         <h2 className={styles["subtitle"]}>{post.subtitle}</h2>
         <p className={styles["text"]}>{post.text}</p>
       </div>
-      <div className={styles["post-detail-page"]}>
+      <div className={styles["post-wrapper"]}>
         <div>
           {post.scheduled_to ? (
             <>
@@ -58,7 +68,7 @@ function PostDetails({ schedulePostToPersons, post, selectedUsers = [] }) {
                   users, you can go back and edit your selection
                 </>
               ) : (
-                <h2>Schedule Post: </h2>
+                "Schedule Post: "
               )}
             </p>
           )}
@@ -80,24 +90,84 @@ function PostDetails({ schedulePostToPersons, post, selectedUsers = [] }) {
                   });
                 }}
               >
-                schedule
+                schedule to selected users
               </Button>
             </>
           )}
-          <Button
-            width={"30%"}
-            hidden={post.scheduled_to}
-            onClick={() => {
-              navigate(
-                `/?isSelect=true&postId=${
-                  post.id
-                }&selectedUsers=${selectedUsers.join(",")}`
-              );
+
+          {selectedSegments.length > 0 && !post.scheduled_to && (
+            <>
+              <Button
+                width={"30%"}
+                onClick={() => {
+                  schedulePostToSegments({
+                    id: post.id,
+                    segmentNames: selectedSegments.map(
+                      (segment) => segment.value
+                    ),
+                  });
+                }}
+              >
+                schedule to selected segments
+              </Button>
+            </>
+          )}
+
+          {!isSegmentSelect && (
+            <>
+              <Button
+                width={"30%"}
+                hidden={post.scheduled_to}
+                onClick={() => {
+                  navigate(
+                    `/?isSelect=true&postId=${
+                      post.id
+                    }&selectedUsers=${selectedUsers.join(",")}`
+                  );
+                }}
+              >
+                To Users
+              </Button>
+            </>
+          )}
+
+          {selectedUsers.length === 0 && (
+            <>
+              <Button
+                width={"30%"}
+                hidden={post.scheduled_to}
+                onClick={() => {
+                  setIsSegmentSelect((prev) => !prev);
+                  setSelectedSegments([]);
+                }}
+              >
+                {!isSegmentSelect ? "To Segments" : "Cancel segments selection"}
+              </Button>
+            </>
+          )}
+        </div>
+
+        {isSegmentSelect && !post.scheduled_to && (
+          <div
+            style={{
+              marginTop: "1rem",
+              width: "30%",
             }}
           >
-            To Users
-          </Button>
-        </div>
+            <Select
+              isMulti
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              onChange={(selectedSegments) => {
+                setSelectedSegments(selectedSegments);
+              }}
+              name="colors"
+              options={SEGMENTS}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
+          </div>
+        )}
       </div>
     </>
   );
