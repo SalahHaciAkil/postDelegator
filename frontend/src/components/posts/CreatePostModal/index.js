@@ -48,11 +48,12 @@ function CreatePostModal({
         width: width ? width : "100%",
       }}
     >
-      <Modal isOpen={isOpen} handleClose={handleClose}>
+      <Modal isOpen={isOpen}>
         <h1>Create a new post</h1>
         <form onSubmit={onSubmit}>
           <FormInput
             placeholder="Title"
+            value={postInput.title}
             autoFocus
             type="text"
             name="title"
@@ -62,6 +63,7 @@ function CreatePostModal({
           <FormInput
             onChange={handleInputChange}
             placeholder="Subtitle"
+            value={postInput.subtitle}
             type="text"
             name="subtitle"
             id="subtitle"
@@ -69,12 +71,19 @@ function CreatePostModal({
           <Textarea
             onChange={handleInputChange}
             name="text"
+            value={postInput.text}
             id="text"
             cols="30"
             rows="10"
           />
           <div className={styles.btns}>
-            <ModalButton type="button" onClick={handleClose}>
+            <ModalButton
+              type="button"
+              onClick={() => {
+                resetForm();
+                handleClose();
+              }}
+            >
               Cancel
             </ModalButton>
             <ModalButton disabled={isCreateLoading}>

@@ -3,7 +3,6 @@ import FormInput from "../../FormInput/FormInput.js";
 import Modal from "../../Modal/index.js";
 import ModalButton from "../../Modal/ModalButton";
 import styles from "../../Modal/Modal.module.scss";
-import Select from "react-select";
 import { SEGMENTS } from "../../../constants/index.js";
 
 function CreateUserModal({
@@ -20,6 +19,7 @@ function CreateUserModal({
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setUserInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -50,11 +50,12 @@ function CreateUserModal({
         width: width ? width : "100%",
       }}
     >
-      <Modal isOpen={isOpen} handleClose={handleClose}>
+      <Modal isOpen={isOpen}>
         <h1>Create a new user</h1>
         <form onSubmit={onSubmit}>
           <FormInput
             placeholder="Name"
+            value={userInput.name}
             autoFocus
             type="text"
             name="name"
@@ -63,26 +64,37 @@ function CreateUserModal({
           />
           <FormInput
             onChange={handleInputChange}
+            value={userInput.email}
             placeholder="Email"
             type="email"
             name="email"
             id="email"
           />
-          <Select
-            name="segments"
-            options={SEGMENTS}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={(e) => {
-              const selectedSegment = e.value;
-              setUserInput((prevState) => ({
-                ...prevState,
-                segmentName: selectedSegment,
-              }));
-            }}
-          />{" "}
+          <select
+            value={userInput.segmentName}
+            onChange={handleInputChange}
+            name="segmentName"
+            id="segmentName"
+          >
+            <option defaultValue={userInput.segmentName}>
+              Select a segment
+            </option>
+            {SEGMENTS.map((segment) => (
+              <>
+                <option key={segment.value} value={segment.value}>
+                  {segment.label}
+                </option>
+              </>
+            ))}
+          </select>{" "}
           <div className={styles.btns}>
-            <ModalButton type="button" onClick={handleClose}>
+            <ModalButton
+              type="button"
+              onClick={() => {
+                resetForm();
+                handleClose();
+              }}
+            >
               Cancel
             </ModalButton>
             <ModalButton disabled={isCreateLoading}>
