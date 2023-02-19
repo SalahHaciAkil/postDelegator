@@ -5,3 +5,5 @@ export const UPDATE_PERSON_SEGMENT: string = `UPDATE person SET segment_id = $1 
 // ----
 export const GET_PERSONS: string = `SELECT * FROM person`;
 export const GET_PERSON_BY_EMAIL: string = `SELECT * FROM person WHERE email = $1`;
+export const GET_PERSONS_BY_IDS: string = `SELECT * FROM person WHERE id = ANY($1::bigint[])`;
+export const GET_PERSONS_BY_SEGMENT_IDS = `SELECT * FROM person WHERE segment_id = ANY($1::bigint[])`;
