@@ -191,44 +191,49 @@ export const schedulePostToPersons = async (_: any, { id, personIds }) => {
     [POST_ASSIGNMENT_TYPE.PERSON, id]
   );
 
-  // Insert an entity into post_person table
-  personIds.forEach(async (personId: string) => {
-    await pool.query(
-      `
-      INSERT INTO post_person (post_id, person_id)
-      VALUES ($1, $2)
-    `,
-      [id, personId]
-    );
-  });
+  // Insert entities into post_person table
+  const values = personIds.map((personId) => [id, personId]);
+  await pool.query(
+    `
+  INSERT INTO post_person (post_id, person_id)
+  VALUES ${values.map((_, i) => `($${i * 2 + 1}, $${i * 2 + 2})`).join(",")}
+  `,
+    values.flat()
+  );
 
   return rows[0];
 };
 
-export const getScheduledSegments = async ({ id, scheduled_to }, _: any) => {
+export const getScheduledSegments = async (
+  { id, scheduled_to },
+  _: any,
+  { segmentsLoader }
+) => {
   if (scheduled_to !== POST_ASSIGNMENT_TYPE.SEGMENT) return null;
   const { rows } = await pool.query(
-    `
-    SELECT segment.*
-    FROM segment 
-    JOIN post_segment ON segment.id = post_segment.segment_id 
-    WHERE post_segment.post_id = $1
-  `,
+    `SELECT segment_id as id FROM post_segment WHERE post_segment.post_id = $1`,
     [id]
   );
-  return rows;
+  const segmentIds = rows.map((row: any) => row.id);
+  return await segmentsLoader.loadMany(segmentIds);
 };
 
-export const getScheduledPersons = async ({ id, scheduled_to }, _: any) => {
+export const getScheduledPersons = async (
+  { id, scheduled_to },
+  _: any,
+  { personsLoader }
+) => {
   if (scheduled_to !== POST_ASSIGNMENT_TYPE.PERSON) return null;
   const { rows } = await pool.query(
     `
-    SELECT person.*
-    FROM person 
-    JOIN post_person ON person.id = post_person.person_id 
-    WHERE post_person.post_id = $1
+  SELECT person_id as id
+  FROM post_person
+  WHERE post_person.post_id = $1
   `,
     [id]
   );
-  return rows;
+  const personIds = rows.map((row: any) => row.id);
+  console.log("personIds: ", personIds);
+
+  return await personsLoader.loadMany(personIds);
 };
