@@ -1,5 +1,7 @@
 # AnnounceKitBlogApp
 
+loom first video: https://www.loom.com/share/0eb418efcfe94d2f8bd06cdc4a8c8efd
+
 ## Overview
 
 This is a web application built with a frontend and a backend using Docker Compose.
