@@ -2,7 +2,6 @@
 
 loom first video: https://www.loom.com/share/0eb418efcfe94d2f8bd06cdc4a8c8efd
 
-loom second video: https://www.loom.com/share/ee51b0c546024525a2790e56e34f8870
 
 ## Overview
 
