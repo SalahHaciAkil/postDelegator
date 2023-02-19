@@ -6,16 +6,26 @@ import {
   DB_PASSWORD,
   DB_PORT,
   DB_USER,
+  NODE_ENV,
 } from "../config/env";
 
-export const pool = new Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_DATABASE,
-  password: DB_PASSWORD,
-  port: DB_PORT,
-});
-
+let pool: Pool;
+if (NODE_ENV === "development") {
+  pool = new Pool({
+    user: DB_USER,
+    host: DB_HOST,
+    database: DB_DATABASE,
+    password: DB_PASSWORD,
+    port: DB_PORT,
+  });
+} else {
+  pool = new Pool({
+    user: DB_USER,
+    host: DB_HOST,
+    database: DB_DATABASE,
+    password: DB_PASSWORD,
+  });
+}
 export const dbConnect = async () => {
   try {
     await pool.connect();
@@ -52,3 +62,5 @@ export const dropTables = async () => {
     console.error("💣 Error dropping database", error);
   }
 };
+
+export { pool };

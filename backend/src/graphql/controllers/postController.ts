@@ -235,7 +235,6 @@ export const getScheduledPersons = async (
     [id]
   );
   const personIds = rows.map((row: any) => row.id);
-  console.log("personIds: ", personIds);
 
   return await personsLoader.loadMany(personIds);
 };

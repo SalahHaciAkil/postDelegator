@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234qwer
+    ports:
+      - "4321:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  server:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PASSWORD=1234qwer
+
+  client:
+    build: ./frontend
+    ports:
+      - "3011:3011"
+    depends_on:
+      - server
+
+volumes:
+  data:
