@@ -1,7 +1,7 @@
 # AnnounceKitBlogApp
 
 loom first video: https://www.loom.com/share/0eb418efcfe94d2f8bd06cdc4a8c8efd
-
+loom second video:https://www.loom.com/share/48c4557c4ce44a18bf3c0d70fd82e698
 
 ## Overview
 
