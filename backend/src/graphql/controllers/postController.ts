@@ -136,16 +136,18 @@ export const schedulePostToSegments = async (_: any, { id, segmentNames }) => {
   `,
     [segmentNames]
   );
-  // Insert post_id and segment_id into post_segment
-  segments.rows.forEach(async (segment: any) => {
-    await pool.query(
-      `
-      INSERT INTO post_segment (post_id, segment_id) 
-      VALUES ($1, $2)
-    `,
-      [id, segment.id]
-    );
-  });
+  const segmentIds = segments.rows.map((segment: any) => segment.id);
+  const values = segmentIds.map((segmentId: any) => [id, segmentId]);
+
+  // Insert entities into post_segment table
+  await pool.query(
+    `
+    INSERT INTO post_segment (post_id, segment_id)
+    VALUES ${values.map((_, i) => `($${i * 2 + 1}, $${i * 2 + 2})`).join(",")}
+  `,
+
+    values.flat()
+  );
 
   return rows[0];
 };
