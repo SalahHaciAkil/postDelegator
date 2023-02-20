@@ -1,3 +1,4 @@
+import logger from "../config/winston";
 import { STATUS_CODES } from "./constants";
 
 const genericError = {
@@ -17,7 +18,7 @@ const handleUncaughtError = (resolve: any) => async (parent, args, context) => {
   try {
     return await resolve(parent, args, context);
   } catch (error) {
-    console.log("error message: ", error.message);
+    logger.error("error message: ", error.message);
 
     return raiseError(genericError);
   }

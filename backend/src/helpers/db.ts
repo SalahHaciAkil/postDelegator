@@ -8,6 +8,7 @@ import {
   DB_USER,
   NODE_ENV,
 } from "../config/env";
+import logger from "../config/winston";
 
 let pool: Pool;
 if (NODE_ENV === "development") {
@@ -29,9 +30,9 @@ if (NODE_ENV === "development") {
 export const dbConnect = async () => {
   try {
     await pool.connect();
-    console.log("🚀 Connected to the database successfully");
+    logger.info("🚀 Connected to the database successfully");
   } catch (error) {
-    console.error("💣 Error connecting to the database");
+    logger.error("💣 Error connecting to the database", error);
   }
 };
 

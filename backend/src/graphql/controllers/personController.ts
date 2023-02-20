@@ -10,6 +10,7 @@ import {
   GET_PERSON_BY_EMAIL,
 } from "../../queries/personQueries";
 import { GET_SEGMENT_BY_NAME } from "../../queries/segmentQueries";
+import logger from "../../config/winston";
 
 export const getPersons = async () => {
   const { rows } = await pool.query(GET_PERSONS);
@@ -46,6 +47,7 @@ export const createPerson = async (_: any, { input }) => {
     email,
     segmentsRows[0].id,
   ]);
+  logger.info(`Created person with id: ${rows[0].id} and email: ${email}`);
   return rows[0];
 };
 

@@ -1,3 +1,4 @@
+import logger from "../../config/winston";
 import { POST_ASSIGNMENT_TYPE, STATUS_CODES } from "../../helpers/constants";
 import { pool } from "../../helpers/db";
 import { raiseError } from "../../helpers/errorHandlers";
@@ -41,6 +42,7 @@ export const createPost = async (_: any, { input }) => {
     scheduled_to,
   ]);
 
+  logger.info(`Created post with id: ${rows[0].id} and title: ${title}`);
   return rows[0];
 };
 
@@ -91,12 +93,15 @@ export const processPendingPosts = async () => {
       );
 
       sendPendingPosts(recipients.rows, post, "persons");
+      logger.info(
+        `Sent post with id: ${post.id} and title: ${post.title} to people`
+      );
 
       // Check if post is assigned to segments
     } else if (post.scheduled_to === 2) {
       const segments = await pool.query(
         `
-        SELECT segment.id 
+        SELECT segment.id, segment.name
         FROM segment 
         JOIN post_segment ON segment.id = post_segment.segment_id 
         WHERE post_segment.post_id = $1 
@@ -116,6 +121,9 @@ export const processPendingPosts = async () => {
         );
 
         sendPendingPosts(recipients.rows, post, "segments");
+        logger.info(
+          `Sent post with id: ${post.id} and title: ${post.title} to segment ${segment.name}`
+        );
       }
     }
   }

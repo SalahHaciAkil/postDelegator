@@ -59,11 +59,11 @@ INSERT INTO person (name, email, segment_id) VALUES ('ahmed', 'ahmed@gmail.com',
 INSERT INTO person (name, email, segment_id) VALUES ('wael', 'wael@gmail.com', 1);
 
 
-INSERT INTO post (title, subtitle, text, scheduled_to) VALUES ('title 1', 'subtitle 1', 'text 1',  1);
-INSERT INTO post (title, subtitle, text, scheduled_to) VALUES ('How to speak powerfully to make change in the world', 'subtitle 1', 'text 1',  2);
-INSERT INTO post (title, subtitle, text) VALUES ('title 1', 'subtitle 1', 'text 1');
-INSERT INTO post (title, subtitle, text) VALUES ('title 4', 'subtitle 4', 'text 4');
-INSERT INTO post (title, subtitle, text) VALUES ('title 5', 'subtitle 5', 'text 5');
+INSERT INTO post (title, subtitle, text, scheduled_to) VALUES (' The Benefits of Regular Exercise', 'Why Physical Activity is Essential for Your Health', 'Regular exercise has been shown to improve heart health, increase muscle strength, and reduce the risk of chronic diseases such as diabetes and cancer. It can also boost your mood and reduce symptoms of depression and anxiety. Whether you prefer running, weight lifting, or yoga, finding an activity that you enjoy can make it easier to stick to a consistent exercise routine. Aim for at least 30 minutes of moderate-intensity exercise each day to reap the full benefits.',  1);
+INSERT INTO post (title, subtitle, text, scheduled_to) VALUES (' The Importance of Financial Planning', 'How to Secure Your Future Financial Stability', 'Financial planning involves creating a roadmap for achieving your financial goals. It can help you manage debt, save for retirement, and build a solid foundation for your future. Start by assessing your current financial situation and identifying your short-term and long-term goals. From there, you can create a budget, set up automatic savings, and invest in a diversified portfolio to help grow your wealth over time. Do not wait until it is too late - start planning for your financial future today.',  2);
+INSERT INTO post (title, subtitle, text) VALUES (' Tips for a Successful Job Interview', ' How to Impress Your Potential Employer', 'A successful job interview can be the difference between landing your dream job and continuing your job search. To prepare, research the company and the role you are interviewing for and practice answering common interview questions. Dress professionally, arrive on time, and be prepared to ask thoughtful questions about the company and the position. During the interview, maintain eye contact, speak clearly and confidently, and highlight your relevant skills and experience. Finally, follow up with a thank-you note or email to express your gratitude for the opportunity to interview.');
+INSERT INTO post (title, subtitle, text) VALUES ('title', 'subtitle', 'text');
+INSERT INTO post (title, subtitle, text) VALUES ('title', 'subtitle', 'text');
 
 
 INSERT INTO post_segment (post_id, segment_id) VALUES (2, 2);
