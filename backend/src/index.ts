@@ -55,7 +55,7 @@ async function startServerAndDB() {
   );
 }
 
-cron.schedule("*/10 *  * * * *", () => {
+cron.schedule(EVERY_10_MINUTES, () => {
   processPendingPosts();
 });
 
