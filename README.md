@@ -1,4 +1,3 @@
-you view the app through this ip address: http://54.200.89.231/
 
 ## Overview
 
